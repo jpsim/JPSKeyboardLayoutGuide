@@ -65,6 +65,7 @@
     NSDictionary *info = notification.userInfo;
     NSValue *kbFrame = info[UIKeyboardFrameEndUserInfoKey];
     NSTimeInterval animationDuration = [info[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    UIViewAnimationCurve curve = [info[UIKeyboardAnimationCurveUserInfoKey] integerValue];
     CGRect keyboardFrame = kbFrame.CGRectValue;
     
     BOOL isPortrait = UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation);
@@ -72,20 +73,25 @@
     
     self.bottomConstraint.constant = -height;
     
-    [UIView animateWithDuration:animationDuration animations:^{
-        [self.view layoutIfNeeded];
-    }];
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    [UIView setAnimationCurve:curve];
+    [self.view layoutIfNeeded];
+    [UIView commitAnimations];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     NSDictionary *info = notification.userInfo;
     NSTimeInterval animationDuration = [info[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    UIViewAnimationCurve curve = [info[UIKeyboardAnimationCurveUserInfoKey] integerValue];
     
     self.bottomConstraint.constant = 0;
     
-    [UIView animateWithDuration:animationDuration animations:^{
-        [self.view layoutIfNeeded];
-    }];
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    [UIView setAnimationCurve:curve];
+    [self.view layoutIfNeeded];
+    [UIView commitAnimations];
 }
 
 @end

@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.author   = { 'JP Simard' => 'jp@jpsim.com' }
   s.source   = { :git => 'https://github.com/jpsim/JPSKeyboardLayoutGuide.git', :tag => s.version.to_s }
 
-  s.description = 'JPSKeyboardLayoutGuide lets you easily make your autolayout view controllers keyboard aware. It's bottomLayoutGuide, if it moved with the keyboard.'
+  s.description = "JPSKeyboardLayoutGuide lets you easily make your autolayout view controllers keyboard aware. It's bottomLayoutGuide, if it moved with the keyboard."
 
   s.source_files = 'JPSKeyboardLayoutGuide/*.{h,m}'
   s.requires_arc = true

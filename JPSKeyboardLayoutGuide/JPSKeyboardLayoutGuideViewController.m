@@ -25,30 +25,11 @@
 	[self.view addSubview:(UIView *)self.keyboardLayoutGuide];
 }
 
--(instancetype)init
+-(void)setView:(UIView *)view
 {
-	if(self = [super init]){
-		[self _createKeyboardLayoutGuide];
-	}
-	return self;
+	[super setView:view];
+	[self _createKeyboardLayoutGuide];
 }
-
--(id)initWithCoder:(NSCoder *)aDecoder
-{
-	if(self = [super initWithCoder:aDecoder]){
-		[self _createKeyboardLayoutGuide];
-	}
-	return self;
-}
-
--(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-	if(self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]){
-		[self _createKeyboardLayoutGuide];
-	}
-	return self;
-}
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];

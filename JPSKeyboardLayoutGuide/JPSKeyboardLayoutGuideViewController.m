@@ -18,6 +18,38 @@
 
 #pragma mark - View Lifecycle
 
+-(void)_createKeyboardLayoutGuide
+{
+	self.keyboardLayoutGuide = (id<UILayoutSupport>)[UIView new];
+	[(UIView *)self.keyboardLayoutGuide setTranslatesAutoresizingMaskIntoConstraints:NO];
+	[self.view addSubview:(UIView *)self.keyboardLayoutGuide];
+}
+
+-(instancetype)init
+{
+	if(self = [super init]){
+		[self _createKeyboardLayoutGuide];
+	}
+	return self;
+}
+
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+	if(self = [super initWithCoder:aDecoder]){
+		[self _createKeyboardLayoutGuide];
+	}
+	return self;
+}
+
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+	if(self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]){
+		[self _createKeyboardLayoutGuide];
+	}
+	return self;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupKeyboardLayoutGuide];
@@ -37,10 +69,7 @@
 #pragma mark - Keyboard Layout Guide
 
 - (void)setupKeyboardLayoutGuide {
-    self.keyboardLayoutGuide = (id<UILayoutSupport>)[UIView new];
-    [(UIView *)self.keyboardLayoutGuide setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.view addSubview:(UIView *)self.keyboardLayoutGuide];
-    
+	NSAssert(self.keyboardLayoutGuide, @"keyboardLayoutGuide needs to be created by now");
     // Constraints
     NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.keyboardLayoutGuide attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:0.0f];
     NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:self.keyboardLayoutGuide attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0f constant:0.0f];

@@ -58,7 +58,7 @@
                                                                  toItem:self.keyboardLayoutGuide
                                                               attribute:NSLayoutAttributeTop
                                                              multiplier:1.0f
-                                                               constant:-100.0f];
+                                                               constant:-10.0f];
     [self.view addConstraints:@[centerX, bottom]];
 }
 

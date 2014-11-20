@@ -8,6 +8,6 @@
 
 #import "JPSKeyboardLayoutGuideViewController.h"
 
-@interface LoginVC : JPSKeyboardLayoutGuideViewController
+@interface LoginVC : UIViewController
 
 @end

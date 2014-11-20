@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JPSKeyboardLayoutGuideViewController : UIViewController
+@interface UIViewController (JPSKeyboardLayoutGuideViewController)
+
+- (void)jps_viewDidLoad;
+- (void)jps_viewWillAppear:(BOOL)animated;
+- (void)jps_viewDidDisappear:(BOOL)animated;
 
 @property (nonatomic, strong) id<UILayoutSupport> keyboardLayoutGuide;
 

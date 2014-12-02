@@ -16,13 +16,40 @@ Drag the `JPSKeyboardLayoutGuide` folder into your project.
 
 ## Usage
 
-`JPSKeyboardLayoutGuide` is meant to be subclassed by your view controllers that need to respond to the keyboard frame:
+`JPSKeyboardLayoutGuide` is a category of `UIViewController`, so for any controller where you want to adopt the behaviour previously described, you must override and call these methods in it's respective callbacks:
 
 ```objective-c
-@interface LoginVC : JPSKeyboardLayoutGuideViewController
+- (void)jps_viewDidLoad;
+- (void)jps_viewWillAppear:(BOOL)animated;
+- (void)jps_viewDidDisappear:(BOOL)animated;
+
+```
+
+A sample implementation would be like this:
+
+```objective-c
+#import "JPSKeyboardLayoutGuideViewController.h"
+
+@interface LoginVC : UIViewController
 @end
 
 @implementation LoginVC
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self jps_viewDidLoad];    
+    [self setupLoginField];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self jps_viewWillAppear:animated];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self jps_viewDidDisappear:animated];
+}
 
 - (void)setupLoginField {
     self.loginField = [[UITextField alloc] init];
@@ -52,7 +79,7 @@ Drag the `JPSKeyboardLayoutGuide` folder into your project.
 @end
 ```
 
-In subclasses of `JPSKeyboardLayoutGuide`, you'll see `keyboardLayoutGuide` in addition to `topLayoutGuide` and `bottomLayoutGuide`. All these guides behave in the same way.
+When importing `JPSKeyboardLayoutGuide`, you'll see `keyboardLayoutGuide` in addition to `topLayoutGuide` and `bottomLayoutGuide`. All these guides behave in the same way.
 
 For more details on layout guides, refer to Apple's documentation on the [`UILayoutSupport` Protocol](https://developer.apple.com/library/ios/documentation/uikit/reference/UILayoutSupport_Protocol/Reference/Reference.html)
 

@@ -7,6 +7,7 @@
 //
 
 #import "LoginVC.h"
+#import "JPSKeyboardLayoutGuideViewController.h"
 
 @interface LoginVC ()
 
@@ -19,10 +20,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self jps_viewDidLoad];
+    
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)]];
     
     [self setupLoginField];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self jps_viewWillAppear:animated];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self jps_viewDidDisappear:animated];
 }
 
 - (void)setupLoginField {

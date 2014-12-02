@@ -8,13 +8,31 @@
 
 #import "JPSKeyboardLayoutGuideViewController.h"
 
-@interface JPSKeyboardLayoutGuideViewController ()
+#import <objc/runtime.h>
+
+@interface UIViewController (JPSKeyboardLayoutGuideViewController_Internal)
 
 @property (nonatomic, strong) NSLayoutConstraint *bottomConstraint;
 
 @end
 
-@implementation JPSKeyboardLayoutGuideViewController
+@implementation UIViewController (JPSKeyboardLayoutGuideViewController)
+
+- (void)setBottomConstraint:(NSLayoutConstraint *)bottomConstraint {
+    objc_setAssociatedObject(self, @selector(bottomConstraint), bottomConstraint, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSLayoutConstraint *)bottomConstraint {
+    return objc_getAssociatedObject(self, @selector(bottomConstraint));
+}
+
+-(void)setKeyboardLayoutGuide:(id<UILayoutSupport>)keyboardLayoutGuide{
+    objc_setAssociatedObject(self, @selector(keyboardLayoutGuide), keyboardLayoutGuide, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(id<UILayoutSupport>)keyboardLayoutGuide{
+    return objc_getAssociatedObject(self, @selector(keyboardLayoutGuide));
+}
 
 #pragma mark - View Lifecycle
 
@@ -25,24 +43,16 @@
 	[self.view addSubview:(UIView *)self.keyboardLayoutGuide];
 }
 
--(void)setView:(UIView *)view
-{
-	[super setView:view];
-	[self _createKeyboardLayoutGuide];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)jps_viewDidLoad {
+    [self _createKeyboardLayoutGuide];
     [self setupKeyboardLayoutGuide];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)jps_viewWillAppear:(BOOL)animated {
     [self observeKeyboard];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+- (void)jps_viewDidDisappear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }

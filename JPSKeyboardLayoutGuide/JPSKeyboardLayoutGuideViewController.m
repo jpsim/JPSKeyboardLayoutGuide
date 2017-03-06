@@ -89,7 +89,7 @@
     UIViewAnimationCurve curve = [info[UIKeyboardAnimationCurveUserInfoKey] integerValue];
     CGRect keyboardFrame = kbFrame.CGRectValue;
     
-    BOOL isPortrait = UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation);
+    BOOL isPortrait = UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation);
     CGFloat height = isPortrait ? keyboardFrame.size.height : keyboardFrame.size.width;
     
     self.bottomConstraint.constant = -height;

@@ -88,11 +88,8 @@
     NSTimeInterval animationDuration = [info[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     UIViewAnimationCurve curve = [info[UIKeyboardAnimationCurveUserInfoKey] integerValue];
     CGRect keyboardFrame = kbFrame.CGRectValue;
-    
-    BOOL isPortrait = UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation);
-    CGFloat height = isPortrait ? keyboardFrame.size.height : keyboardFrame.size.width;
-    
-    self.bottomConstraint.constant = -height;
+
+    self.bottomConstraint.constant = -keyboardFrame.size.height;
     
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:animationDuration];
